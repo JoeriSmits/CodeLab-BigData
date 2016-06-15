@@ -5133,7 +5133,7 @@ Custom property | Description | Default
 
     </style>
 
-    <iron-ajax id="getMachine" url="https://pf605p1hy3.execute-api.eu-west-1.amazonaws.com/prod" handle-as="json" on-response="_getMachine"></iron-ajax>
+    <iron-ajax id="getMachine" headers="{{apiHeaders}}" url="https://pf605p1hy3.execute-api.eu-west-1.amazonaws.com/dev" handle-as="json" on-response="_getMachine"></iron-ajax>
 
     <google-codelab title="CodeLab: Introductie in Big Data" last-updated="2016-06-13">
         <google-codelab-step label="Overzicht" step="1" duration="3">
@@ -5176,7 +5176,7 @@ Custom property | Description | Default
                     <template is="dom-if" if="{{noMoreMachines}}">
                         <aside class="danger">
                             <p>
-                                Momenteel zijn er geen virtual machines meer beschikbaar. 
+                                Momenteel zijn er geen virtual machines meer beschikbaar.
                             </p>
                         </aside>
                     </template>
@@ -5463,7 +5463,7 @@ GROUP BY year;
 
             <h2>Navigeer naar de Zeppelin web interface en open een note</h2>
             <ol type="1" start="1">
-                <li>Navigaar naar <a href="http://ip.org">http://43.56.563.32:9995</a> om de web interface van Zeppelin te openen</li>
+                <li>Navigaar naar <a href="http://{{machineIP}}:9995">http://{{machineIP}}:9995</a> om de web interface van Zeppelin te openen</li>
                 <li>Klik op "Create a new note"</li>
                 <li>Noem deze "Crimes per year"</li>
                 <li>Klik op de knop "Create Note"</li>

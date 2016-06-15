@@ -37,10 +37,11 @@
     </style>
 
     <iron-ajax
-      id="getMachine"
-      url="https://pf605p1hy3.execute-api.eu-west-1.amazonaws.com/prod"
-      handle-as="json"
-      on-response="_getMachine"></iron-ajax>
+        id="getMachine"
+        headers="{{apiHeaders}}"
+        url="https://pf605p1hy3.execute-api.eu-west-1.amazonaws.com/prod"
+        handle-as="json"
+        on-response="_getMachine"></iron-ajax>
 
     <google-codelab title="CodeLab: Introductie in Big Data"
         last-updated="2016-06-13">
@@ -462,6 +463,11 @@ Polymer({
         noMoreMachines: {
             type: Boolean,
             value: false
+        },
+
+        apiHeaders: {
+            type: Object,
+            value: {"x-api-key": "jQOrXitGQv6Uktl22EvDhr7VyNcI2ye46uzWvqfi"}
         }
     },
 

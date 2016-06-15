@@ -18255,6 +18255,11 @@ Polymer({
         noMoreMachines: {
             type: Boolean,
             value: false
+        },
+
+        apiHeaders: {
+            type: Object,
+            value: {"x-api-key": "jQOrXitGQv6Uktl22EvDhr7VyNcI2ye46uzWvqfi"}
         }
     },
 
