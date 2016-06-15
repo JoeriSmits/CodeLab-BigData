@@ -5136,7 +5136,7 @@ Custom property | Description | Default
     <iron-ajax id="getMachine" headers="{{apiHeaders}}" url="https://pf605p1hy3.execute-api.eu-west-1.amazonaws.com/prod" handle-as="json" on-response="_getMachine"></iron-ajax>
 
     <google-codelab title="CodeLab: Introductie in Big Data" last-updated="2016-06-13">
-        <google-codelab-step label="Overzicht" step="1" duration="3">
+        <google-codelab-step label="Overzicht" step="1" duration="2">
             <p>
                 In deze codelab krijg je een korte introductie over Big Data. Je gaat doormiddel van de
                 <a href="http://Hortonworks.com/products/sandbox/" target="_blank">sandbox van Hortonworks</a> kennismaken met Hadoop en services van Hadoop.
@@ -5164,7 +5164,7 @@ Custom property | Description | Default
                 Om te kunnen werken met de sandbox van Hortonworks dien je eerst in te loggen bij een virtual machine. Dit gebeurt in de volgende stap.
             </p>
         </google-codelab-step>
-        <google-codelab-step label="Verken de sandbox" step="2" duration="6">
+        <google-codelab-step label="Verken de sandbox" step="2" duration="4">
             <p>
                 Om gemakkelijk en snel met Big Data te kunnen werken gebruik je de sandbox van Hortonworks.
                 De sandbox is eigenlijk een virtual machine distributie waar Hadoop en al zijn services op zijn geïnstalleerd.
@@ -5233,7 +5233,7 @@ Custom property | Description | Default
             </p>
         </google-codelab-step>
 
-        <google-codelab-step label="HDFS" step="3" duration="5">
+        <google-codelab-step label="HDFS" step="3" duration="4">
             <p>
                 Hadoop Distributed File System (afgekort HDFS) is de opslag van alle data binnen Hadoop.
                 Je kan dus HDFS gebruiken om de Big Data op te slaan. Andere services gebruiken HDFS om de Big Data die daar staat opgeslagen te verwerken.
@@ -5438,9 +5438,19 @@ GROUP BY year;
             </ul>
 
             <p>
-                Nadat je deze query hebt uitgevoerd duurt het ongeveer één minuut tot Hive klaar is. Dit geeft het volgende resultaat in het "Query Process Results" scherm.
+                Nadat je deze query hebt uitgevoerd duurt het ongeveer één minuut tot Hive klaar is.
+                Wanneer Hive klaar is met het uitvoeren van deze code kan je het resultaat bekijken.
+
+                </p><ol type="1" start="1">
+                    <li>Ververs het data overzicht door op het <iron-icon icon="cached"></iron-icon> icoon te drukken</li>
+                    <li>Open de <code>default</code> database</li>
+                    <li>Je ziet nu "crimes_year" staan tussen de voorbeeldtabellen</li>
+                    <li>Druk nu op <iron-icon icon="list"></iron-icon> rechts naast de "crimes_stage" tabel</li>
+                </ol>
+
+                Je krijgt nu het volgende resultaat te zien
                 <img src="../../images/stap4_5.png">
-            </p>
+            <p></p>
 
             <h2>Volgende stap</h2>
             <p>
@@ -5449,7 +5459,7 @@ GROUP BY year;
             </p>
         </google-codelab-step>
 
-        <google-codelab-step label="Genereer grafieken" step="3" duration="6">
+        <google-codelab-step label="Genereer grafieken" step="5" duration="5">
             <img src="../../images/ZeppelinLogo.png" style="width: 250px; float: right;">
             <p>
                 Je hebt in de vorige stap een tabel gegenereerd die weergeeft hoeveel misdrijven er per jaar zijn geweest. Wat je in deze stap wilt doen, is deze tabel omzetten in een grafiek.
@@ -5463,7 +5473,7 @@ GROUP BY year;
 
             <h2>Navigeer naar de Zeppelin web interface en open een note</h2>
             <ol type="1" start="1">
-                <li>Navigaar naar <a href="http://{{machineIP}}:9995">http://{{machineIP}}:9995</a> om de web interface van Zeppelin te openen</li>
+                <li>Navigaar naar <a href="http://{{machineIP}}:9995" target="_blank">http://{{machineIP}}:9995</a> om de web interface van Zeppelin te openen</li>
                 <li>Klik op "Create a new note"</li>
                 <li>Noem deze "Crimes per year"</li>
                 <li>Klik op de knop "Create Note"</li>
@@ -5498,10 +5508,11 @@ SELECT * FROM crimes_year
             <ol type="1" start="1">
                 <li>Druk op het <iron-icon icon="av:play-arrow"></iron-icon> icoon naast "READY" om de code uit te voeren</li>
                 <li>Wacht tot de code is uitgevoerd</li>
+                <li>Klik op het volgende logo <iron-icon icon="trending-up"></iron-icon> om de grafiek te tonen</li>
                 <li>Klik op "settings" om de eigenschappen van de grafiek aan te passen</li>
+                <li>Haal de huidige "Keys" en "Values" weg</li>
                 <li>Sleep <code>crimes_year.year</code> naar "Keys"</li>
                 <li>Sleep <code>crimes_year.amount</code> naar "Values"</li>
-                <li>Klik op het volgende logo <iron-icon icon="trending-up"></iron-icon> om de grafiek te tonen</li>
             </ol>
 
             <p>
@@ -5514,7 +5525,7 @@ SELECT * FROM crimes_year
             </p>
         </google-codelab-step>
 
-        <google-codelab-step label="Bedankt!" step="3" duration="0">
+        <google-codelab-step label="Bedankt!" step="6" duration="0">
             <p>Je hebt in deze workshop kennis gemaakt met de mogelijkheden van Hadoop. Je hebt uit een voor het mens niet te analyseren .csv file waardevolle informatie gehaald.
                 Door infrastructuur limieten was deze dataset aan de kleine kant (1.7GB, ongeveer 7 miljoen record). Zou je de infrastructuur vergroten, dan kan je dezelfde workshop toepassen op een dataset van bijvoorbeeld 800 TB.</p>
 

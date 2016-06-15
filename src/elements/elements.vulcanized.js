@@ -15279,7 +15279,7 @@ Polymer({
           index = '';
         }
         // navigate away to the index page
-        window.location.href = '/' + index;
+        window.location.href = '/codelab-bigdata/index.html' + index;
       },
 
       _tocItemClass: function(selected, i) {
