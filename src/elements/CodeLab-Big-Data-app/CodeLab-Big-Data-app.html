@@ -3,6 +3,8 @@
 <link rel="import" href="../../../bower_components/codelab-components/google-codelab-step.html">
 <link rel="import" href="../../../bower_components/iron-icons/hardware-icons.html">
 <link rel="import" href="../../../bower_components/iron-icons/av-icons.html">
+<link rel="import" href="../../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../../bower_components/paper-spinner/paper-spinner.html">
 
 <dom-module id="CodeLab-Big-Data-app">
     <template>
@@ -18,6 +20,12 @@
         color: #464;
     }
 
+    aside.danger {
+        border-color: #aa6666;
+        background: #eedddd;
+        color: #664444;
+    }
+
     ol, ul {
         margin: 2em 0;
     }
@@ -27,6 +35,12 @@
     }
 
     </style>
+
+    <iron-ajax
+      id="getMachine"
+      url="https://pf605p1hy3.execute-api.eu-west-1.amazonaws.com/prod"
+      handle-as="json"
+      on-response="_getMachine"></iron-ajax>
 
     <google-codelab title="CodeLab: Introductie in Big Data"
         last-updated="2016-06-13">
@@ -66,20 +80,34 @@
 
             <h2>Jouw persoonlijke Hortonworks sandbox credentials:</h2>
             <p>
-                <table>
-                    <tr>
-                        <td><strong>Sandbox IP</strong></td>
-                        <td><a href="http://ip.com" target="_blank">http://40.234.52.67:8080</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Gebruikersnaam</strong></td>
-                        <td>maria_dev</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Wachtwoord</strong></td>
-                        <td>maria_dev</td>
-                    </tr>
-                </table>
+                <template is="dom-if" if="{{!machineIP}}">
+                    <template is="dom-if" if="{{noMoreMachines}}">
+                        <aside class="danger">
+                            <p>
+                                Momenteel zijn er geen virtual machines meer beschikbaar.
+                            </p>
+                        </aside>
+                    </template>
+                    <template is="dom-if" if="{{!noMoreMachines}}">
+                        <paper-spinner active></paper-spinner>
+                    </template>
+                </template>
+                <template is="dom-if" if={{machineIP}}>
+                    <table>
+                        <tr>
+                            <td><strong>Sandbox IP</strong></td>
+                            <td><a href="http://{{machineIP}}:8080" target="_blank">http://{{machineIP}}:8080</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gebruikersnaam</strong></td>
+                            <td>maria_dev</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wachtwoord</strong></td>
+                            <td>maria_dev</td>
+                        </tr>
+                    </table>
+                </template>
 
                 <ol type="1" start="1">
                     <li>Navigeer naar het bovenstaande IP adres</li>
@@ -346,7 +374,7 @@ GROUP BY year;
 
             <h2>Navigeer naar de Zeppelin web interface en open een note</h2>
             <ol type="1" start="1">
-                <li>Navigaar naar <a href="http://ip.org">http://43.56.563.32:9995</a> om de web interface van Zeppelin te openen</li>
+                <li>Navigaar naar <a href="http://{{machineIP}}:9995">http://{{machineIP}}:9995</a> om de web interface van Zeppelin te openen</li>
                 <li>Klik op "Create a new note"</li>
                 <li>Noem deze "Crimes per year"</li>
                 <li>Klik op de knop "Create Note"</li>
@@ -426,12 +454,57 @@ Polymer({
     is: 'CodeLab-Big-Data-app',
 
     properties: {
-        prop1: {
+        machineIP: {
             type: String,
-            value: 'CodeLab-Big-Data-app',
+            value: null
         },
+
+        noMoreMachines: {
+            type: Boolean,
+            value: false
+        }
     },
 
+    attached: function () {
+        if(Boolean(this._getCookie()) === true) {
+            this.machineIP = this._getCookie();
+        } else {
+            this.$.getMachine.generateRequest();
+        }
+    },
+
+    _getCookie: function() {
+        var ca = document.cookie.split(';');
+        for(var i = 0;i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1,c.length);
+            if (c.indexOf('machine=') === 0) return c.substring('machine='.length,c.length);
+        }
+        return null;
+    },
+
+    _setCookie: function (cookieValue, days) {
+        var expires;
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime()+(days*24*60*60*1000));
+            expires = "; expires="+date.toGMTString();
+        }
+        else {
+            expires = "";
+        }
+        document.cookie = 'machine'+"="+cookieValue+expires+"; path=/";
+    },
+
+    _getMachine: function (e, detail) {
+        var machine = detail.response;
+        if(machine !== null) {
+            this.set('machineIP', machine);
+            this._setCookie(machine, 31);
+        } else {
+            this.set('noMoreMachines', true);
+        }
+    }
 });
 </script>
 </dom-module>
